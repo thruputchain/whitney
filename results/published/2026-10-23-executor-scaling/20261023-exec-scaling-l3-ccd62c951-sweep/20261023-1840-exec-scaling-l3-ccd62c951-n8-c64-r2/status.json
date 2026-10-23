@@ -1,0 +1,9 @@
+{
+  "status": "ok",
+  "error": null,
+  "started_at": "2026-10-23T18:40:28Z",
+  "finished_at": "2026-10-23T18:42:08Z",
+  "cleanup": [
+    "orphan check failed: aws ec2 describe-instances --region us-west-2 --filters Name=tag:whitney,Values=20261023-1815-exec-scaling-l3-ccd62c951-sweep-r2 Name=instance-state-name,Values=pending,running,stopping,stopped --query 'Reservations[].Instances[].[InstanceId, Tags[?Key=='\"'\"'Name'\"'\"']|[0].Value]' --output json exited 255: \naws: [ERROR]: Your session has expired. Please reauthenticate using 'aws login'."
+  ]
+}

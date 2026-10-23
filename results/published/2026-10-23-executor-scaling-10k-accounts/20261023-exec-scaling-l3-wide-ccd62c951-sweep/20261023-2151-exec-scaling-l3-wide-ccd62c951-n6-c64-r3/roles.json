@@ -1,0 +1,357 @@
+{
+  "bin_dir": "/opt/whitney/bin",
+  "runner_bind_ip": "<ip>",
+  "event": {
+    "host": "<ip>",
+    "control_port": 11111,
+    "metrics_port": 9101,
+    "work_dir": "/mnt/whitney/work/event",
+    "cpu_affinity": ""
+  },
+  "db": {
+    "host": "<ip>",
+    "control_port": 11111,
+    "metrics_port": 9102,
+    "work_dir": "/mnt/whitney/work/db",
+    "cpu_affinity": ""
+  },
+  "indexer": null,
+  "execs": [
+    {
+      "host": "<ip>",
+      "control_port": 11111,
+      "metrics_port": 9104,
+      "work_dir": "/mnt/whitney/work/exec0",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11112,
+      "metrics_port": 9201,
+      "work_dir": "/mnt/whitney/work/exec0-1",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11113,
+      "metrics_port": 9202,
+      "work_dir": "/mnt/whitney/work/exec0-2",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11114,
+      "metrics_port": 9203,
+      "work_dir": "/mnt/whitney/work/exec0-3",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11115,
+      "metrics_port": 9204,
+      "work_dir": "/mnt/whitney/work/exec0-4",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11116,
+      "metrics_port": 9205,
+      "work_dir": "/mnt/whitney/work/exec0-5",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11117,
+      "metrics_port": 9206,
+      "work_dir": "/mnt/whitney/work/exec0-6",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11118,
+      "metrics_port": 9207,
+      "work_dir": "/mnt/whitney/work/exec0-7",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11111,
+      "metrics_port": 9104,
+      "work_dir": "/mnt/whitney/work/exec1",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11112,
+      "metrics_port": 9265,
+      "work_dir": "/mnt/whitney/work/exec1-1",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11113,
+      "metrics_port": 9266,
+      "work_dir": "/mnt/whitney/work/exec1-2",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11114,
+      "metrics_port": 9267,
+      "work_dir": "/mnt/whitney/work/exec1-3",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11115,
+      "metrics_port": 9268,
+      "work_dir": "/mnt/whitney/work/exec1-4",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11116,
+      "metrics_port": 9269,
+      "work_dir": "/mnt/whitney/work/exec1-5",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11117,
+      "metrics_port": 9270,
+      "work_dir": "/mnt/whitney/work/exec1-6",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11118,
+      "metrics_port": 9271,
+      "work_dir": "/mnt/whitney/work/exec1-7",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11111,
+      "metrics_port": 9104,
+      "work_dir": "/mnt/whitney/work/exec2",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11112,
+      "metrics_port": 9329,
+      "work_dir": "/mnt/whitney/work/exec2-1",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11113,
+      "metrics_port": 9330,
+      "work_dir": "/mnt/whitney/work/exec2-2",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11114,
+      "metrics_port": 9331,
+      "work_dir": "/mnt/whitney/work/exec2-3",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11115,
+      "metrics_port": 9332,
+      "work_dir": "/mnt/whitney/work/exec2-4",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11116,
+      "metrics_port": 9333,
+      "work_dir": "/mnt/whitney/work/exec2-5",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11117,
+      "metrics_port": 9334,
+      "work_dir": "/mnt/whitney/work/exec2-6",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11118,
+      "metrics_port": 9335,
+      "work_dir": "/mnt/whitney/work/exec2-7",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11111,
+      "metrics_port": 9104,
+      "work_dir": "/mnt/whitney/work/exec3",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11112,
+      "metrics_port": 9393,
+      "work_dir": "/mnt/whitney/work/exec3-1",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11113,
+      "metrics_port": 9394,
+      "work_dir": "/mnt/whitney/work/exec3-2",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11114,
+      "metrics_port": 9395,
+      "work_dir": "/mnt/whitney/work/exec3-3",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11115,
+      "metrics_port": 9396,
+      "work_dir": "/mnt/whitney/work/exec3-4",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11116,
+      "metrics_port": 9397,
+      "work_dir": "/mnt/whitney/work/exec3-5",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11117,
+      "metrics_port": 9398,
+      "work_dir": "/mnt/whitney/work/exec3-6",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11118,
+      "metrics_port": 9399,
+      "work_dir": "/mnt/whitney/work/exec3-7",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11111,
+      "metrics_port": 9104,
+      "work_dir": "/mnt/whitney/work/exec4",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11112,
+      "metrics_port": 9457,
+      "work_dir": "/mnt/whitney/work/exec4-1",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11113,
+      "metrics_port": 9458,
+      "work_dir": "/mnt/whitney/work/exec4-2",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11114,
+      "metrics_port": 9459,
+      "work_dir": "/mnt/whitney/work/exec4-3",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11115,
+      "metrics_port": 9460,
+      "work_dir": "/mnt/whitney/work/exec4-4",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11116,
+      "metrics_port": 9461,
+      "work_dir": "/mnt/whitney/work/exec4-5",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11117,
+      "metrics_port": 9462,
+      "work_dir": "/mnt/whitney/work/exec4-6",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11118,
+      "metrics_port": 9463,
+      "work_dir": "/mnt/whitney/work/exec4-7",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11111,
+      "metrics_port": 9104,
+      "work_dir": "/mnt/whitney/work/exec5",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11112,
+      "metrics_port": 9521,
+      "work_dir": "/mnt/whitney/work/exec5-1",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11113,
+      "metrics_port": 9522,
+      "work_dir": "/mnt/whitney/work/exec5-2",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11114,
+      "metrics_port": 9523,
+      "work_dir": "/mnt/whitney/work/exec5-3",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11115,
+      "metrics_port": 9524,
+      "work_dir": "/mnt/whitney/work/exec5-4",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11116,
+      "metrics_port": 9525,
+      "work_dir": "/mnt/whitney/work/exec5-5",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11117,
+      "metrics_port": 9526,
+      "work_dir": "/mnt/whitney/work/exec5-6",
+      "cpu_affinity": ""
+    },
+    {
+      "host": "<ip>",
+      "control_port": 11118,
+      "metrics_port": 9527,
+      "work_dir": "/mnt/whitney/work/exec5-7",
+      "cpu_affinity": ""
+    }
+  ]
+}

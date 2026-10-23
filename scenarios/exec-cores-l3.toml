@@ -1,0 +1,38 @@
+# Core scaling on one executor host: hog-exec limited to K = 1, 2, 4, ..., 64
+# cores, one hog-exec per L3 cache domain (K > 8 runs K / 8 hog-execs).
+# The published 100-account curve. See README.md and docs/methodology.md.
+#
+# Before a run, set:
+#   hogd_ref           a hogd tag that has the HOGD_EXTRA_BENCH_DIRS bench hook
+#   availability_zone  a zone that offers r8a.16xlarge:
+#     aws ec2 describe-instance-type-offerings --location-type availability-zone \
+#       --filters Name=instance-type,Values=r8a.16xlarge --region us-west-2
+#   ami_id             the Canonical Ubuntu 26.04 AMI ID for the region
+name = "exec-cores-l3"
+hogd_ref = "SET-ME"
+region = "us-west-2"
+availability_zone = ""
+ami_id = ""
+
+n_list = [1]
+exec_cores = [1, 2, 4, 8, 16, 32, 64]
+exec_per_l3 = true
+# jemalloc preloaded into hog-exec (see docs/methodology.md, Allocator).
+exec_allocator = "jemalloc"
+accounts = 100
+
+warmup_blocks = 1
+timed_blocks = 10
+# 29,000 txs per core: about 1.2 to 1.6 s per block at every K.
+txs_per_block_per_core = 29000
+batch_sizes = [5]
+repetitions = 3
+
+# tmpfs: the benchmark measures contract execution, not storage.
+storage = "tmpfs"
+
+[instance_types]
+runner = "r8a.16xlarge"
+exec = "r8a.16xlarge"
+db = "r8a.16xlarge"
+event = "r8a.16xlarge"

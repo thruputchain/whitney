@@ -1,0 +1,1 @@
+whitney: whitney run s.toml

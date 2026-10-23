@@ -1,0 +1,250 @@
+{
+  "seed": 714986993,
+  "order": [
+    [
+      [
+        1,
+        32
+      ],
+      [
+        1,
+        16
+      ],
+      [
+        1,
+        64
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        8
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        32
+      ],
+      [
+        1,
+        8
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        1,
+        64
+      ],
+      [
+        1,
+        16
+      ]
+    ],
+    [
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        16
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        64
+      ],
+      [
+        1,
+        8
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        1,
+        32
+      ]
+    ]
+  ],
+  "scenario": "exec-cores-l3",
+  "hogd_ref": "ccd62c951",
+  "archive_sha256": "146d1330859ea2355e841bec36135de0414a6d97020970ce470b6b1236904fa6",
+  "aborted": false,
+  "abort_reason": null,
+  "cleanup": [],
+  "runs": [
+    {
+      "run_dir": "20261023-1757-exec-cores-l3-ccd62c951-n1-c32-r1",
+      "n": 1,
+      "cores": 32,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1757-exec-cores-l3-ccd62c951-n1-c16-r1",
+      "n": 1,
+      "cores": 16,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1758-exec-cores-l3-ccd62c951-n1-c64-r1",
+      "n": 1,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1759-exec-cores-l3-ccd62c951-n1-c1-r1",
+      "n": 1,
+      "cores": 1,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1759-exec-cores-l3-ccd62c951-n1-c2-r1",
+      "n": 1,
+      "cores": 2,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1800-exec-cores-l3-ccd62c951-n1-c8-r1",
+      "n": 1,
+      "cores": 8,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1801-exec-cores-l3-ccd62c951-n1-c4-r1",
+      "n": 1,
+      "cores": 4,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1803-exec-cores-l3-ccd62c951-n1-c1-r2",
+      "n": 1,
+      "cores": 1,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1804-exec-cores-l3-ccd62c951-n1-c32-r2",
+      "n": 1,
+      "cores": 32,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1805-exec-cores-l3-ccd62c951-n1-c8-r2",
+      "n": 1,
+      "cores": 8,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1805-exec-cores-l3-ccd62c951-n1-c2-r2",
+      "n": 1,
+      "cores": 2,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1806-exec-cores-l3-ccd62c951-n1-c4-r2",
+      "n": 1,
+      "cores": 4,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1807-exec-cores-l3-ccd62c951-n1-c64-r2",
+      "n": 1,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1807-exec-cores-l3-ccd62c951-n1-c16-r2",
+      "n": 1,
+      "cores": 16,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1810-exec-cores-l3-ccd62c951-n1-c2-r3",
+      "n": 1,
+      "cores": 2,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1811-exec-cores-l3-ccd62c951-n1-c16-r3",
+      "n": 1,
+      "cores": 16,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1811-exec-cores-l3-ccd62c951-n1-c1-r3",
+      "n": 1,
+      "cores": 1,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1812-exec-cores-l3-ccd62c951-n1-c64-r3",
+      "n": 1,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1813-exec-cores-l3-ccd62c951-n1-c8-r3",
+      "n": 1,
+      "cores": 8,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1814-exec-cores-l3-ccd62c951-n1-c4-r3",
+      "n": 1,
+      "cores": 4,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1814-exec-cores-l3-ccd62c951-n1-c32-r3",
+      "n": 1,
+      "cores": 32,
+      "rep": 3,
+      "status": "ok"
+    }
+  ]
+}

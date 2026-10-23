@@ -1,0 +1,53 @@
+# Unit tests, OpenTofu checks, and tests/test_host_setup.sh (the host setup
+# script, run in an ubuntu:26.04 container with WHITNEY_DRY_RUN=1). They need
+# no AWS account, no hogd source, and no secrets: the OpenTofu tests use a
+# mock AWS provider.
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv run pytest -q
+
+  opentofu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: infra
+    steps:
+      - uses: actions/checkout@v4
+      # Running Whitney needs OpenTofu 1.9+. Its tests need a newer one:
+      # tests/cluster.tftest.hcl calls functions in run variables.
+      - uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: 1.13.1
+      - run: tofu fmt -check -recursive
+      - run: tofu init -backend=false
+      - run: tofu validate
+      - run: tofu test
+
+  host-setup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      # tofu renders the template; docker and shellcheck come with the runner.
+      # No wrapper: the script reads `tofu output -raw` from stdout.
+      - uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: 1.13.1
+          tofu_wrapper: false
+      - run: bash tests/test_host_setup.sh

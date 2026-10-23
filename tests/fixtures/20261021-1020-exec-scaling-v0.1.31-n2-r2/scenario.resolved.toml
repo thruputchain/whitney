@@ -1,0 +1,38 @@
+name = "exec-scaling"
+hogd_ref = "v0.1.31"
+region = "us-east-1"
+n_list = [1, 2, 3]
+availability_zone = "us-east-1a"
+ami_id = "ami-0123456789abcdef0"
+storage = "nvme"
+indexer = false
+single_host = false
+experiment = "erc20_payments"
+accounts = 100
+txs_per_block = 1000000
+txs_per_block_per_exec = 0
+exec_cores = []
+txs_per_block_per_core = 0
+exec_allocator = "system"
+exec_per_l3 = false
+batch_sizes = [1, 5, 10]
+warmup_blocks = 1
+timed_blocks = 10
+connections_per_exec = 10
+coros_per_connection = 100
+uniquifier_layout = "per-sender"
+repetitions = 1
+ebs_volume_type = "gp3"
+ebs_volume_size_gib = 200
+ebs_iops = 16000
+ebs_throughput_mibps = 1000
+
+[instance_types]
+runner = "r8a.16xlarge"
+exec = "r8a.16xlarge"
+db = "x8aedz.12xlarge"
+event = "x8aedz.12xlarge"
+indexer = "x8aedz.12xlarge"
+single = "m8a.48xlarge"
+
+[cpu_layout]

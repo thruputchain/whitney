@@ -1,0 +1,38 @@
+name = "exec-cores-l3"
+hogd_ref = "ccd62c951"
+region = "us-west-2"
+n_list = [1]
+availability_zone = "us-west-2d"
+ami_id = "ami-0fb2d44dcddd9fb1b"
+storage = "tmpfs"
+indexer = false
+single_host = false
+experiment = "erc20_payments"
+accounts = 100
+txs_per_block = 1000000
+txs_per_block_per_exec = 0
+exec_cores = [1, 2, 4, 8, 16, 32, 64]
+txs_per_block_per_core = 29000
+exec_allocator = "jemalloc"
+exec_per_l3 = true
+batch_sizes = [5]
+warmup_blocks = 1
+timed_blocks = 10
+connections_per_exec = 10
+coros_per_connection = 100
+uniquifier_layout = "per-sender"
+repetitions = 3
+ebs_volume_type = "gp3"
+ebs_volume_size_gib = 200
+ebs_iops = 16000
+ebs_throughput_mibps = 1000
+
+[instance_types]
+runner = "r8a.16xlarge"
+exec = "r8a.16xlarge"
+db = "r8a.16xlarge"
+event = "r8a.16xlarge"
+indexer = "r8a.16xlarge"
+single = "m8a.48xlarge"
+
+[cpu_layout]

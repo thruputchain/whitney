@@ -1,0 +1,10 @@
+.terraform/
+*.tfstate*
+.whitney-cache/
+__pycache__/
+.DS_Store
+.venv/
+.pytest_cache/
+# Local run output. Publish a clean copy with `whitney publish` (see docs/usage.md),
+# then: git add -f results/published/<name>
+results/

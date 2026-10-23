@@ -1,0 +1,289 @@
+{
+  "seed": 3200097482,
+  "order": [
+    [
+      [
+        5,
+        64
+      ],
+      [
+        1,
+        64
+      ],
+      [
+        4,
+        64
+      ],
+      [
+        6,
+        64
+      ],
+      [
+        7,
+        64
+      ],
+      [
+        3,
+        64
+      ],
+      [
+        2,
+        64
+      ],
+      [
+        8,
+        64
+      ]
+    ],
+    [
+      [
+        6,
+        64
+      ],
+      [
+        7,
+        64
+      ],
+      [
+        1,
+        64
+      ],
+      [
+        3,
+        64
+      ],
+      [
+        4,
+        64
+      ],
+      [
+        5,
+        64
+      ],
+      [
+        2,
+        64
+      ],
+      [
+        8,
+        64
+      ]
+    ],
+    [
+      [
+        5,
+        64
+      ],
+      [
+        3,
+        64
+      ],
+      [
+        2,
+        64
+      ],
+      [
+        1,
+        64
+      ],
+      [
+        4,
+        64
+      ],
+      [
+        6,
+        64
+      ],
+      [
+        8,
+        64
+      ],
+      [
+        7,
+        64
+      ]
+    ]
+  ],
+  "scenario": "exec-scaling-l3",
+  "hogd_ref": "ccd62c951",
+  "archive_sha256": "146d1330859ea2355e841bec36135de0414a6d97020970ce470b6b1236904fa6",
+  "aborted": false,
+  "abort_reason": null,
+  "cleanup": [
+    {
+      "rep": 2,
+      "note": "orphan check failed: aws ec2 describe-instances --region us-west-2 --filters Name=tag:whitney,Values=20261023-1815-exec-scaling-l3-ccd62c951-sweep-r2 Name=instance-state-name,Values=pending,running,stopping,stopped --query 'Reservations[].Instances[].[InstanceId, Tags[?Key=='\"'\"'Name'\"'\"']|[0].Value]' --output json exited 255: \naws: [ERROR]: Your session has expired. Please reauthenticate using 'aws login'."
+    }
+  ],
+  "runs": [
+    {
+      "run_dir": "20261023-1817-exec-scaling-l3-ccd62c951-n5-c64-r1",
+      "n": 5,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1818-exec-scaling-l3-ccd62c951-n1-c64-r1",
+      "n": 1,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1820-exec-scaling-l3-ccd62c951-n4-c64-r1",
+      "n": 4,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1821-exec-scaling-l3-ccd62c951-n6-c64-r1",
+      "n": 6,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1822-exec-scaling-l3-ccd62c951-n7-c64-r1",
+      "n": 7,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1824-exec-scaling-l3-ccd62c951-n3-c64-r1",
+      "n": 3,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1825-exec-scaling-l3-ccd62c951-n2-c64-r1",
+      "n": 2,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1826-exec-scaling-l3-ccd62c951-n8-c64-r1",
+      "n": 8,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1831-exec-scaling-l3-ccd62c951-n6-c64-r2",
+      "n": 6,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1832-exec-scaling-l3-ccd62c951-n7-c64-r2",
+      "n": 7,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1834-exec-scaling-l3-ccd62c951-n1-c64-r2",
+      "n": 1,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1835-exec-scaling-l3-ccd62c951-n3-c64-r2",
+      "n": 3,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1836-exec-scaling-l3-ccd62c951-n4-c64-r2",
+      "n": 4,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1837-exec-scaling-l3-ccd62c951-n5-c64-r2",
+      "n": 5,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1839-exec-scaling-l3-ccd62c951-n2-c64-r2",
+      "n": 2,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1840-exec-scaling-l3-ccd62c951-n8-c64-r2",
+      "n": 8,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1905-exec-scaling-l3-ccd62c951-n3-c64-r3",
+      "n": 3,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1906-exec-scaling-l3-ccd62c951-n2-c64-r3",
+      "n": 2,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1907-exec-scaling-l3-ccd62c951-n8-c64-r3",
+      "n": 8,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1909-exec-scaling-l3-ccd62c951-n7-c64-r3",
+      "n": 7,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1910-exec-scaling-l3-ccd62c951-n6-c64-r3",
+      "n": 6,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1912-exec-scaling-l3-ccd62c951-n4-c64-r3",
+      "n": 4,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1913-exec-scaling-l3-ccd62c951-n1-c64-r3",
+      "n": 1,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-1914-exec-scaling-l3-ccd62c951-n5-c64-r3",
+      "n": 5,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    }
+  ],
+  "note": "Repetitions 1-2 come from sweep 20261023-1815-exec-scaling-l3-ccd62c951-sweep (it stopped after repetition 2: the operator AWS session expired). Repetition 3 comes from sweep 20261023-1903-exec-scaling-l3-ccd62c951-sweep (run as repetition 1 there, renamed r3 here). Same archive and scenario."
+}

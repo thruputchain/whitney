@@ -1,0 +1,34 @@
+# Cheap functional smoke, NOT a benchmark: do not publish its numbers.
+# The multi-host layout on the smallest size: every role on r8a.large, N = 1,
+# a tiny workload. db and event get a small gp3 EBS data volume, so the smoke
+# exercises the ebs storage path. It proves the AMI, host setup (cloud-init)
+# with the EBS mount, the archive, the runner, result collection, and destroy
+# before the real scenarios.
+# Placeholders: set availability_zone (a zone that offers r8a.large) and
+# ami_id before provisioning (see docs/usage.md, Scenarios).
+name = "ec2-smoke-multi"
+# Set hogd_ref to a hogd tag or commit that has the HOGD_EXTRA_BENCH_DIRS
+# bench hook (see docs/usage.md, Scenarios).
+hogd_ref = "SET-ME"
+region = "us-west-2"
+availability_zone = ""
+ami_id = ""
+storage = "ebs"
+ebs_volume_type = "gp3"
+ebs_volume_size_gib = 20
+ebs_iops = 3000
+ebs_throughput_mibps = 125
+n_list = [1]
+repetitions = 1
+accounts = 10
+txs_per_block = 100000
+warmup_blocks = 1
+timed_blocks = 2
+batch_sizes = [5]
+
+[instance_types]
+runner = "r8a.large"
+exec = "r8a.large"
+db = "r8a.large"
+event = "r8a.large"
+indexer = "r8a.large"

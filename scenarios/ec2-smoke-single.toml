@@ -1,0 +1,31 @@
+# Cheap functional smoke, NOT a benchmark: do not publish its numbers.
+# One m8a.2xlarge (8 vCPUs), tmpfs, N = 1, a tiny workload. It proves the
+# AMI, host setup (cloud-init), the archive, the runner, result collection,
+# and destroy before you pay for the real scenarios.
+# Placeholders: set availability_zone and ami_id before provisioning (see
+# docs/usage.md, Scenarios).
+name = "ec2-smoke-single"
+# Set hogd_ref to a hogd tag or commit that has the HOGD_EXTRA_BENCH_DIRS
+# bench hook (see docs/usage.md, Scenarios).
+hogd_ref = "SET-ME"
+region = "us-west-2"
+availability_zone = ""
+ami_id = ""
+single_host = true
+storage = "tmpfs"
+n_list = [1]
+repetitions = 1
+accounts = 10
+txs_per_block = 100000
+warmup_blocks = 1
+timed_blocks = 2
+batch_sizes = [5]
+
+[instance_types]
+single = "m8a.2xlarge"
+
+[cpu_layout]
+runner = "0"
+event = "1"
+db = "2"
+exec0 = "3-7"

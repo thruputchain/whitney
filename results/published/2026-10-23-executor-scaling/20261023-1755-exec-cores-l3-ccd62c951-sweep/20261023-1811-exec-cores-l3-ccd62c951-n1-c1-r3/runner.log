@@ -1,0 +1,149 @@
+[1mI[0;34m[1023 18:12:08 init.cc:44][0m raised RLIMIT_NOFILE soft from 1024 to 524288
+[1mI[0;34m[1023 18:12:08 init.cc:60][0m pid:7796, os:Linux, arch:x86_64, cores:64
+[1mI[0;34m[1023 18:12:08 init.cc:96][0m hogd version: 0.1.2, git commit hash: ccd62c95139acbfcc54da1e55ed87ba033d9c21c
+[1mI[0;34m[1023 18:12:08 init.cc:97][0m hogd config: cmake -DCMAKE_C_COMPILER='/usr/bin/gcc' -DCMAKE_CXX_COMPILER='/usr/bin/g++' -DCMAKE_C_FLAGS=' -Wall -march=znver5' -DCMAKE_CXX_FLAGS=' -Wall -march=znver5 -Wno-interference-size' -DCMAKE_BUILD_TYPE='Release'
+[1mI[0;34m[1023 18:12:08 init.cc:98][0m hogd protocol: hogp/42dca6e571f1e8b
+[1mI[0;34m[1023 18:12:08 init.cc:99][0m hogd command: /opt/whitney/bin/whitney-runner --roles /var/lib/whitney/roles.json --accounts 100 --experiment erc20_payments --txs-per-block 29000 --batch-sizes 5 --warmup-blocks 1 --timed-blocks 10 --connections-per-exec 10 --coros-per-connection 100 --uniquifier-layout per-sender --json-out /var/lib/whitney/trials.jsonl
+[1mI[0;34m[1023 18:12:08 init.cc:65][0m reading self binary from /opt/whitney/bin/whitney-runner
+[1mI[0;34m[1023 18:12:08 init.cc:101][0m hogd process: /opt/whitney/bin/whitney-runner, binary hash: 0b0f510dd2e3
+[1mI[0;34m[1023 18:12:08 control_client.h:79][0m connecting to control server on <ip>:11111
+[1mI[0;34m[1023 18:12:08 control_client.h:79][0m connecting to control server on <ip>:11111
+[1mI[0;34m[1023 18:12:08 control_client.h:79][0m connecting to control server on <ip>:11111
+role=event stop
+role=event wait
+role=event clear
+role=db stop
+role=db wait
+role=db clear
+role=exec0 stop
+role=exec0 wait
+role=exec0 clear
+role=event start
+role=db start
+role=exec0 start
+[1mI[0;34m[1023 18:12:09 multiexec_cluster.h:86][0m executor with card {
+  protocol = 686f67702f343264636136653537316631653862,
+  upid = 0000000000000000,
+  address = "<ip>:53905",
+} connected
+[1mI[0;34m[1023 18:12:09 multiexec_cluster.h:93][0m doing lambda for schedexec_intro_exec
+[1mI[0;34m[1023 18:12:09 multiexec_cluster.h:96][0m pushed card 1 to exec_cards
+[1mI[0;34m[1023 18:12:09 multiexec_cluster.h:100][0m event_card is not empty
+[1mI[0;34m[1023 18:12:09 multiexec_cluster.h:130][0m awaiting 1 executor cards
+[1mI[0;34m[1023 18:12:09 multiexec_cluster.h:133][0m got 1 executor cards
+[1mI[0;34m[1023 18:12:09 multiexec_cluster.h:102][0m shard_cards is not empty: returning IntroExecResult
+[1mI[0;34m[1023 18:12:09 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:40667
+[1mI[0;34m[1023 18:12:09 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:53905
+[1mI[0;34m[1023 18:12:09 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:53905
+[1mI[0;34m[1023 18:12:09 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:53905
+[1mI[0;34m[1023 18:12:09 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:53905
+[1mI[0;34m[1023 18:12:09 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:53905
+[1mI[0;34m[1023 18:12:09 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:53905
+[1mI[0;34m[1023 18:12:09 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:53905
+[1mI[0;34m[1023 18:12:09 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:53905
+[1mI[0;34m[1023 18:12:09 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:53905
+[1mI[0;34m[1023 18:12:09 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:53905
+[1mI[0;34m[1023 18:12:09 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:53905
+[1mI[0;34m[1023 18:12:09 whitney_runner.cc:185][0m opening block 1
+opening: issue_time 6850 create_time 155862 done_time 557734
+[1mI[0;34m[1023 18:12:09 multiexec_cluster.h:254][0m closing block 1
+closing: issue_time 48010 close_time 833617 commit_time 2549502 done_time 60 event_commit_time 188792
+open_time 727406 middle_time 18337530 close_time 3623031 inner tps: 381.73080016774344
+[1mI[0;34m[1023 18:12:09 whitney_runner.cc:185][0m opening block 2
+opening: issue_time 13890 create_time 109151 done_time 308443
+[1mI[0;34m[1023 18:12:09 multiexec_cluster.h:254][0m closing block 2
+closing: issue_time 53821 close_time 770627 commit_time 2605022 done_time 60 event_commit_time 144771
+open_time 437584 middle_time 9032608 close_time 3577381 inner tps: 11070.99964927073
+[1mI[0;34m[1023 18:12:09 whitney_runner.cc:633][0m done initialization txs
+uniquifier_layout=per-sender senders=100 heights_per_block=1
+Start trial 0 with txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:12:09 whitney_runner.cc:185][0m opening block 3
+opening: issue_time 14380 create_time 167701 done_time 377293
+[1mI[0;34m[1023 18:12:10 multiexec_cluster.h:254][0m closing block 3
+closing: issue_time 69581 close_time 1006378 commit_time 2587933 done_time 60 event_commit_time 179841
+open_time 578585 middle_time 1261062250 close_time 3850334 inner tps: 22996.485700844663
+time taken: 1265495049 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=22915.933193824767
+[1mI[0;34m[1023 18:12:10 whitney_runner.cc:723][0m time taken: 1265495049 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=22915.933193824767
+Start trial 1 with txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:12:10 whitney_runner.cc:185][0m opening block 4
+opening: issue_time 5240 create_time 148592 done_time 375773
+[1mI[0;34m[1023 18:12:11 multiexec_cluster.h:254][0m closing block 4
+closing: issue_time 76351 close_time 1134580 commit_time 2971246 done_time 80 event_commit_time 226782
+open_time 535995 middle_time 1283041970 close_time 4413769 inner tps: 22602.5341945751
+time taken: 1287993634 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=22515.639234906343
+[1mI[0;34m[1023 18:12:11 whitney_runner.cc:723][0m time taken: 1287993634 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=22515.639234906343
+Start trial 2 with txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:12:11 whitney_runner.cc:185][0m opening block 5
+opening: issue_time 4530 create_time 136481 done_time 491644
+[1mI[0;34m[1023 18:12:13 multiexec_cluster.h:254][0m closing block 5
+closing: issue_time 95301 close_time 1083639 commit_time 3014727 done_time 80 event_commit_time 219631
+open_time 635835 middle_time 1264981874 close_time 4418279 inner tps: 22925.229678034106
+time taken: 1270038028 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=22833.961944956816
+[1mI[0;34m[1023 18:12:13 whitney_runner.cc:723][0m time taken: 1270038028 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=22833.961944956816
+Start trial 3 with txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:12:13 whitney_runner.cc:185][0m opening block 6
+opening: issue_time 4690 create_time 131601 done_time 337773
+[1mI[0;34m[1023 18:12:14 multiexec_cluster.h:254][0m closing block 6
+closing: issue_time 98931 close_time 1126160 commit_time 2997996 done_time 10 event_commit_time 220432
+open_time 478754 middle_time 1266544007 close_time 4447619 inner tps: 22896.954104809087
+time taken: 1271471950 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=22808.210594028442
+[1mI[0;34m[1023 18:12:14 whitney_runner.cc:723][0m time taken: 1271471950 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=22808.210594028442
+Start trial 4 with txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:12:14 whitney_runner.cc:185][0m opening block 7
+opening: issue_time 6890 create_time 130901 done_time 325693
+[1mI[0;34m[1023 18:12:15 multiexec_cluster.h:254][0m closing block 7
+closing: issue_time 121051 close_time 1077009 commit_time 2803315 done_time 10 event_commit_time 213382
+open_time 467824 middle_time 1277290921 close_time 4217817 inner tps: 22704.302929903937
+time taken: 1281978122 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=22621.29088034468
+[1mI[0;34m[1023 18:12:15 whitney_runner.cc:723][0m time taken: 1281978122 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=22621.29088034468
+Start trial 5 with txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:12:15 whitney_runner.cc:185][0m opening block 8
+opening: issue_time 4050 create_time 135081 done_time 341543
+[1mI[0;34m[1023 18:12:16 multiexec_cluster.h:254][0m closing block 8
+closing: issue_time 122631 close_time 1072409 commit_time 2961606 done_time 10 event_commit_time 224112
+open_time 485164 middle_time 1240941825 close_time 4385358 inner tps: 23369.34690713644
+time taken: 1245813937 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=23277.954386859616
+[1mI[0;34m[1023 18:12:16 whitney_runner.cc:723][0m time taken: 1245813937 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=23277.954386859616
+Start trial 6 with txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:12:16 whitney_runner.cc:185][0m opening block 9
+opening: issue_time 4861 create_time 109650 done_time 446494
+[1mI[0;34m[1023 18:12:18 multiexec_cluster.h:254][0m closing block 9
+closing: issue_time 103720 close_time 1561104 commit_time 3284858 done_time 10 event_commit_time 220012
+open_time 566685 middle_time 1242337128 close_time 5173424 inner tps: 23343.1001508312
+time taken: 1248079007 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=23235.70850671315
+[1mI[0;34m[1023 18:12:18 whitney_runner.cc:723][0m time taken: 1248079007 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=23235.70850671315
+Start trial 7 with txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:12:18 whitney_runner.cc:185][0m opening block 10
+opening: issue_time 3980 create_time 135181 done_time 396524
+[1mI[0;34m[1023 18:12:19 multiexec_cluster.h:254][0m closing block 10
+closing: issue_time 110971 close_time 1190620 commit_time 2995216 done_time 20 event_commit_time 214992
+open_time 540095 middle_time 1270801404 close_time 4516519 inner tps: 22820.245483455572
+time taken: 1275859828 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=22729.76965303433
+[1mI[0;34m[1023 18:12:19 whitney_runner.cc:723][0m time taken: 1275859828 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=22729.76965303433
+Start trial 8 with txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:12:19 whitney_runner.cc:185][0m opening block 11
+opening: issue_time 4440 create_time 133241 done_time 402904
+[1mI[0;34m[1023 18:12:20 multiexec_cluster.h:254][0m closing block 11
+closing: issue_time 132701 close_time 1149060 commit_time 2558742 done_time 50 event_commit_time 216302
+open_time 547024 middle_time 1323427691 close_time 4063865 inner tps: 21912.795234084308
+time taken: 1328040221 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=21836.688032056223
+[1mI[0;34m[1023 18:12:20 whitney_runner.cc:723][0m time taken: 1328040221 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=21836.688032056223
+Start trial 9 with txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:12:20 whitney_runner.cc:185][0m opening block 12
+opening: issue_time 8040 create_time 138372 done_time 401243
+[1mI[0;34m[1023 18:12:22 multiexec_cluster.h:254][0m closing block 12
+closing: issue_time 125681 close_time 1119680 commit_time 3016306 done_time 270 event_commit_time 234342
+open_time 564875 middle_time 1287791442 close_time 4504059 inner tps: 22519.174343138708
+time taken: 1292865146 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=22430.80037366867
+[1mI[0;34m[1023 18:12:22 whitney_runner.cc:723][0m time taken: 1292865146 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=22430.80037366867
+Start trial 10 with txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:12:22 whitney_runner.cc:185][0m opening block 13
+opening: issue_time 5330 create_time 118421 done_time 515614
+[1mI[0;34m[1023 18:12:23 multiexec_cluster.h:254][0m closing block 13
+closing: issue_time 131111 close_time 1067209 commit_time 2544732 done_time 50 event_commit_time 222332
+open_time 646615 middle_time 1238210432 close_time 3971834 inner tps: 23420.897813918597
+time taken: 1242831981 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=23333.80573025341
+[1mI[0;34m[1023 18:12:23 whitney_runner.cc:723][0m time taken: 1242831981 ns for txs=29000 nexecutors=1 nconnections=10 ncoros_per_connection=100 nacc=100 batch_size=5 tps=23333.80573025341
+role=event teardown
+role=db teardown
+role=exec0 teardown

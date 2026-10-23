@@ -1,0 +1,31 @@
+{
+  "hogd_ref": "ccd62c951",
+  "hogd_ref_is_tag": false,
+  "hogd_commit": "ccd62c95139acbfcc54da1e55ed87ba033d9c21c",
+  "whitney_src_hash": "f96152abddb31a2eea05ba9a579a0f6f11b4c1bb84a5d52d1ca6232f04c57326",
+  "whitney_commit": "117b9b2d327eeb255c33256874f6a975086cafe7",
+  "build_flags": [
+    "-t",
+    "Release",
+    "-c",
+    "gcc",
+    "-x",
+    "-DBUILD_BENCHMARKS=ON",
+    "-x",
+    "-DBUILD_ARCHITECTURE=znver5",
+    "-x",
+    "-DRUST_BUILD_CPU=znver5",
+    "-x",
+    "-DHOGD_EXTRA_BENCH_DIRS=/whitney/runner"
+  ],
+  "toolchain_image_digest": "sha256:75037a50673c7c254a7af170f986cc6286871bc37e3c28028887ce6f4031ab83",
+  "toolchain": {
+    "gcc": "15.2.0",
+    "clang": "21.1.8",
+    "rustc": "1.93.0",
+    "cmake": "4.2.3"
+  },
+  "arch": "znver5",
+  "hogd_git_hash": "ccd62c95139acbfcc54da1e55ed87ba033d9c21c",
+  "built_at": "2026-10-23T17:55:15Z"
+}

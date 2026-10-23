@@ -1,0 +1,331 @@
+[1mI[0;34m[1023 18:34:32 init.cc:44][0m raised RLIMIT_NOFILE soft from 1024 to 524288
+[1mI[0;34m[1023 18:34:32 init.cc:60][0m pid:10328, os:Linux, arch:x86_64, cores:96
+[1mI[0;34m[1023 18:34:32 init.cc:96][0m hogd version: 0.1.2, git commit hash: ccd62c95139acbfcc54da1e55ed87ba033d9c21c
+[1mI[0;34m[1023 18:34:32 init.cc:97][0m hogd config: cmake -DCMAKE_C_COMPILER='/usr/bin/gcc' -DCMAKE_CXX_COMPILER='/usr/bin/g++' -DCMAKE_C_FLAGS=' -Wall -march=znver5' -DCMAKE_CXX_FLAGS=' -Wall -march=znver5 -Wno-interference-size' -DCMAKE_BUILD_TYPE='Release'
+[1mI[0;34m[1023 18:34:32 init.cc:98][0m hogd protocol: hogp/42dca6e571f1e8b
+[1mI[0;34m[1023 18:34:32 init.cc:99][0m hogd command: /opt/whitney/bin/whitney-runner --roles /var/lib/whitney/roles.json --accounts 100 --experiment erc20_payments --txs-per-block 4000000 --batch-sizes 5 --warmup-blocks 1 --timed-blocks 10 --connections-per-exec 10 --coros-per-connection 100 --uniquifier-layout per-sender --json-out /var/lib/whitney/trials.jsonl
+[1mI[0;34m[1023 18:34:32 init.cc:65][0m reading self binary from /opt/whitney/bin/whitney-runner
+[1mI[0;34m[1023 18:34:32 init.cc:101][0m hogd process: /opt/whitney/bin/whitney-runner, binary hash: 0b0f510dd2e3
+[1mI[0;34m[1023 18:34:32 control_client.h:79][0m connecting to control server on <ip>:11111
+[1mI[0;34m[1023 18:34:32 control_client.h:79][0m connecting to control server on <ip>:11111
+[1mI[0;34m[1023 18:34:32 control_client.h:79][0m connecting to control server on <ip>:11111
+[1mI[0;34m[1023 18:34:32 control_client.h:79][0m connecting to control server on <ip>:11112
+[1mI[0;34m[1023 18:34:32 control_client.h:79][0m connecting to control server on <ip>:11113
+[1mI[0;34m[1023 18:34:32 control_client.h:79][0m connecting to control server on <ip>:11114
+[1mI[0;34m[1023 18:34:32 control_client.h:79][0m connecting to control server on <ip>:11115
+[1mI[0;34m[1023 18:34:32 control_client.h:79][0m connecting to control server on <ip>:11116
+[1mI[0;34m[1023 18:34:32 control_client.h:79][0m connecting to control server on <ip>:11117
+[1mI[0;34m[1023 18:34:32 control_client.h:79][0m connecting to control server on <ip>:11118
+role=event stop
+role=event wait
+role=event clear
+role=db stop
+role=db wait
+role=db clear
+role=exec0 stop
+role=exec0 wait
+role=exec0 clear
+role=exec1 stop
+role=exec1 wait
+role=exec1 clear
+role=exec2 stop
+role=exec2 wait
+role=exec2 clear
+role=exec3 stop
+role=exec3 wait
+role=exec3 clear
+role=exec4 stop
+role=exec4 wait
+role=exec4 clear
+role=exec5 stop
+role=exec5 wait
+role=exec5 clear
+role=exec6 stop
+role=exec6 wait
+role=exec6 clear
+role=exec7 stop
+role=exec7 wait
+role=exec7 clear
+role=event start
+role=db start
+role=exec0 start
+role=exec1 start
+role=exec2 start
+role=exec3 start
+role=exec4 start
+role=exec5 start
+role=exec6 start
+role=exec7 start
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:86][0m executor with card {
+  protocol = 686f67702f343264636136653537316631653862,
+  upid = 0000000000000000,
+  address = "<ip>:58553",
+} connected
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:93][0m doing lambda for schedexec_intro_exec
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:96][0m pushed card 1 to exec_cards
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:100][0m event_card is not empty
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:86][0m executor with card {
+  protocol = 686f67702f343264636136653537316631653862,
+  upid = 0000000000000000,
+  address = "<ip>:58803",
+} connected
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:93][0m doing lambda for schedexec_intro_exec
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:96][0m pushed card 2 to exec_cards
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:100][0m event_card is not empty
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:86][0m executor with card {
+  protocol = 686f67702f343264636136653537316631653862,
+  upid = 0000000000000000,
+  address = "<ip>:35093",
+} connected
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:93][0m doing lambda for schedexec_intro_exec
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:96][0m pushed card 3 to exec_cards
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:100][0m event_card is not empty
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:86][0m executor with card {
+  protocol = 686f67702f343264636136653537316631653862,
+  upid = 0000000000000000,
+  address = "<ip>:60131",
+} connected
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:93][0m doing lambda for schedexec_intro_exec
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:96][0m pushed card 4 to exec_cards
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:100][0m event_card is not empty
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:86][0m executor with card {
+  protocol = 686f67702f343264636136653537316631653862,
+  upid = 0000000000000000,
+  address = "<ip>:51113",
+} connected
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:93][0m doing lambda for schedexec_intro_exec
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:96][0m pushed card 5 to exec_cards
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:100][0m event_card is not empty
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:86][0m executor with card {
+  protocol = 686f67702f343264636136653537316631653862,
+  upid = 0000000000000000,
+  address = "<ip>:43969",
+} connected
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:93][0m doing lambda for schedexec_intro_exec
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:96][0m pushed card 6 to exec_cards
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:100][0m event_card is not empty
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:86][0m executor with card {
+  protocol = 686f67702f343264636136653537316631653862,
+  upid = 0000000000000000,
+  address = "<ip>:47745",
+} connected
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:93][0m doing lambda for schedexec_intro_exec
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:96][0m pushed card 7 to exec_cards
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:100][0m event_card is not empty
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:86][0m executor with card {
+  protocol = 686f67702f343264636136653537316631653862,
+  upid = 0000000000000000,
+  address = "<ip>:59065",
+} connected
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:93][0m doing lambda for schedexec_intro_exec
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:96][0m pushed card 8 to exec_cards
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:100][0m event_card is not empty
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:130][0m awaiting 8 executor cards
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:102][0m shard_cards is not empty: returning IntroExecResult
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:102][0m shard_cards is not empty: returning IntroExecResult
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:102][0m shard_cards is not empty: returning IntroExecResult
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:133][0m got 8 executor cards
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:102][0m shard_cards is not empty: returning IntroExecResult
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:48405
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:102][0m shard_cards is not empty: returning IntroExecResult
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:102][0m shard_cards is not empty: returning IntroExecResult
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:102][0m shard_cards is not empty: returning IntroExecResult
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:102][0m shard_cards is not empty: returning IntroExecResult
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58553
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58803
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:35093
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:60131
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:51113
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:43969
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:47745
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:59065
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58553
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58803
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:35093
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:60131
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:51113
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:43969
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:47745
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:59065
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58553
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58803
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:35093
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:60131
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:51113
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:43969
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:47745
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:59065
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58553
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58803
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:35093
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:60131
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:51113
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:43969
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:47745
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:59065
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58553
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58803
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:35093
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:60131
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:51113
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:43969
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:47745
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:59065
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58553
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58803
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:35093
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:60131
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:51113
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:43969
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:47745
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:59065
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58553
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58803
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:35093
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:60131
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:51113
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:43969
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:47745
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:59065
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58553
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58803
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:35093
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:60131
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:51113
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:43969
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:47745
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:59065
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58553
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58803
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:35093
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:60131
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:51113
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:43969
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:47745
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:59065
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58553
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58803
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:35093
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:60131
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:51113
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:43969
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:47745
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:59065
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58553
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:58803
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:35093
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:60131
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:51113
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:43969
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:47745
+[1mI[0;34m[1023 18:34:33 rpc_client.h:36][0m make_rpc_client: connecting to <ip>:59065
+[1mI[0;34m[1023 18:34:33 whitney_runner.cc:185][0m opening block 1
+opening: issue_time 7720 create_time 157051 done_time 1685804
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:254][0m closing block 1
+closing: issue_time 311403 close_time 1500252 commit_time 3000244 done_time 170 event_commit_time 238012
+open_time 1859535 middle_time 95653895 close_time 5054751 inner tps: 73.18050143175037
+[1mI[0;34m[1023 18:34:33 whitney_runner.cc:185][0m opening block 2
+opening: issue_time 4990 create_time 164831 done_time 945498
+[1mI[0;34m[1023 18:34:33 multiexec_cluster.h:254][0m closing block 2
+closing: issue_time 290812 close_time 1461212 commit_time 2400389 done_time 20 event_commit_time 191302
+open_time 1119559 middle_time 95103071 close_time 4347585 inner tps: 1051.490755750674
+[1mI[0;34m[1023 18:34:33 whitney_runner.cc:633][0m done initialization txs
+uniquifier_layout=per-sender senders=100 heights_per_block=6
+Start trial 0 with txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:34:37 whitney_runner.cc:185][0m opening block 3
+opening: issue_time 44800 create_time 402844 done_time 1112998
+[1mI[0;34m[1023 18:34:40 multiexec_cluster.h:254][0m closing block 3
+closing: issue_time 409193 close_time 16272110 commit_time 13095265 done_time 6118929 event_commit_time 380093
+open_time 1587193 middle_time 3367696644 close_time 36282530 inner tps: 1187755.4372738805
+time taken: 3405570557 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1174546.212756678
+[1mI[0;34m[1023 18:34:40 whitney_runner.cc:723][0m time taken: 3405570557 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1174546.212756678
+Start trial 1 with txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:34:40 whitney_runner.cc:185][0m opening block 4
+opening: issue_time 20800 create_time 169431 done_time 981368
+[1mI[0;34m[1023 18:34:43 multiexec_cluster.h:254][0m closing block 4
+closing: issue_time 417744 close_time 13728550 commit_time 13609829 done_time 834116 event_commit_time 383353
+open_time 1188489 middle_time 3370333205 close_time 28979782 inner tps: 1186826.2740508472
+time taken: 3400506446 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1176295.3735039032
+[1mI[0;34m[1023 18:34:43 whitney_runner.cc:723][0m time taken: 3400506446 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1176295.3735039032
+Start trial 2 with txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:34:43 whitney_runner.cc:185][0m opening block 5
+opening: issue_time 21700 create_time 186001 done_time 728696
+[1mI[0;34m[1023 18:34:47 multiexec_cluster.h:254][0m closing block 5
+closing: issue_time 439844 close_time 13436668 commit_time 13686829 done_time 899247 event_commit_time 322193
+open_time 952447 middle_time 3369587309 close_time 28791011 inner tps: 1187088.9913777271
+time taken: 3399335547 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1176700.5477085372
+[1mI[0;34m[1023 18:34:47 whitney_runner.cc:723][0m time taken: 3399335547 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1176700.5477085372
+Start trial 3 with txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:34:47 whitney_runner.cc:185][0m opening block 6
+opening: issue_time 10080 create_time 169241 done_time 1056159
+[1mI[0;34m[1023 18:34:50 multiexec_cluster.h:254][0m closing block 6
+closing: issue_time 381493 close_time 13489558 commit_time 12673941 done_time 3506658 event_commit_time 308213
+open_time 1250670 middle_time 3366926328 close_time 30365423 inner tps: 1188027.1827557494
+time taken: 3398547031 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1176973.5606168811
+[1mI[0;34m[1023 18:34:50 whitney_runner.cc:723][0m time taken: 3398547031 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1176973.5606168811
+Start trial 4 with txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:34:50 whitney_runner.cc:185][0m opening block 7
+opening: issue_time 7880 create_time 173602 done_time 1007888
+[1mI[0;34m[1023 18:34:54 multiexec_cluster.h:254][0m closing block 7
+closing: issue_time 389263 close_time 13759360 commit_time 12858493 done_time 4378305 event_commit_time 421723
+open_time 1198910 middle_time 3357896956 close_time 31812654 inner tps: 1191221.783280952
+time taken: 3390913160 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1179623.2493314573
+[1mI[0;34m[1023 18:34:54 whitney_runner.cc:723][0m time taken: 3390913160 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1179623.2493314573
+Start trial 5 with txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:34:54 whitney_runner.cc:185][0m opening block 8
+opening: issue_time 17071 create_time 174771 done_time 996688
+[1mI[0;34m[1023 18:34:57 multiexec_cluster.h:254][0m closing block 8
+closing: issue_time 429794 close_time 15927157 commit_time 13165566 done_time 3201505 event_commit_time 360643
+open_time 1201860 middle_time 3361869917 close_time 33090905 inner tps: 1189814.0317009774
+time taken: 3396166762 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1177798.465245094
+[1mI[0;34m[1023 18:34:57 whitney_runner.cc:723][0m time taken: 3396166762 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1177798.465245094
+Start trial 6 with txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:34:57 whitney_runner.cc:185][0m opening block 9
+opening: issue_time 19371 create_time 176031 done_time 1044638
+[1mI[0;34m[1023 18:35:01 multiexec_cluster.h:254][0m closing block 9
+closing: issue_time 416204 close_time 13690739 commit_time 12702052 done_time 3117045 event_commit_time 366553
+open_time 1252310 middle_time 3375404836 close_time 30297903 inner tps: 1185043.0376049862
+time taken: 3406958749 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1174067.6347120632
+[1mI[0;34m[1023 18:35:01 whitney_runner.cc:723][0m time taken: 3406958749 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1174067.6347120632
+Start trial 7 with txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:35:01 whitney_runner.cc:185][0m opening block 10
+opening: issue_time 8280 create_time 168281 done_time 945398
+[1mI[0;34m[1023 18:35:04 multiexec_cluster.h:254][0m closing block 10
+closing: issue_time 460784 close_time 13140495 commit_time 12766602 done_time 1853955 event_commit_time 391963
+open_time 1143889 middle_time 3372676114 close_time 28620559 inner tps: 1186001.8171907982
+time taken: 3402445062 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1175625.154002854
+[1mI[0;34m[1023 18:35:04 whitney_runner.cc:723][0m time taken: 3402445062 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1175625.154002854
+Start trial 8 with txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:35:04 whitney_runner.cc:185][0m opening block 11
+opening: issue_time 9050 create_time 165842 done_time 947077
+[1mI[0;34m[1023 18:35:07 multiexec_cluster.h:254][0m closing block 11
+closing: issue_time 428743 close_time 13267766 commit_time 12273009 done_time 4533096 event_commit_time 299932
+open_time 1136249 middle_time 3361755767 close_time 30809256 inner tps: 1189854.432396665
+time taken: 3393706322 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1178652.370144596
+[1mI[0;34m[1023 18:35:07 whitney_runner.cc:723][0m time taken: 3393706322 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1178652.370144596
+Start trial 9 with txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:35:07 whitney_runner.cc:185][0m opening block 12
+opening: issue_time 20780 create_time 174442 done_time 998908
+[1mI[0;34m[1023 18:35:11 multiexec_cluster.h:254][0m closing block 12
+closing: issue_time 416454 close_time 13633979 commit_time 12779922 done_time 1627343 event_commit_time 317823
+open_time 1211150 middle_time 3365662897 close_time 28781461 inner tps: 1188473.1544461625
+time taken: 3395659878 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1177974.2800259336
+[1mI[0;34m[1023 18:35:11 whitney_runner.cc:723][0m time taken: 3395659878 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1177974.2800259336
+Start trial 10 with txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5
+[1mI[0;34m[1023 18:35:11 whitney_runner.cc:185][0m opening block 13
+opening: issue_time 19900 create_time 171101 done_time 956728
+[1mI[0;34m[1023 18:35:14 multiexec_cluster.h:254][0m closing block 13
+closing: issue_time 435073 close_time 13306407 commit_time 12655961 done_time 1739534 event_commit_time 390273
+open_time 1162359 middle_time 3377803255 close_time 28534088 inner tps: 1184201.594358402
+time taken: 3407503852 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1173879.8175245614
+[1mI[0;34m[1023 18:35:14 whitney_runner.cc:723][0m time taken: 3407503852 ns for txs=4000000 nexecutors=8 nconnections=80 ncoros_per_connection=100 nacc=100 batch_size=5 tps=1173879.8175245614
+role=event teardown
+role=db teardown
+role=exec0 teardown
+role=exec1 teardown
+role=exec2 teardown
+role=exec3 teardown
+role=exec4 teardown
+role=exec5 teardown
+role=exec6 teardown
+role=exec7 teardown

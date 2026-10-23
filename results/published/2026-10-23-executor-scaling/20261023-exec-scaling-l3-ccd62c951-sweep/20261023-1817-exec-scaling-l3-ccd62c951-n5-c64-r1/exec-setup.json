@@ -1,0 +1,272 @@
+{
+  "exec0": {
+    "l3": [
+      "0-7",
+      "8-15",
+      "16-23",
+      "24-31",
+      "32-39",
+      "40-47",
+      "48-55",
+      "56-63"
+    ],
+    "ports": {
+      "11111": {
+        "want": "0-7",
+        "cpus": "0-7",
+        "allocator": "jemalloc"
+      },
+      "11112": {
+        "want": "8-15",
+        "cpus": "8-15",
+        "allocator": "jemalloc"
+      },
+      "11113": {
+        "want": "16-23",
+        "cpus": "16-23",
+        "allocator": "jemalloc"
+      },
+      "11114": {
+        "want": "24-31",
+        "cpus": "24-31",
+        "allocator": "jemalloc"
+      },
+      "11115": {
+        "want": "32-39",
+        "cpus": "32-39",
+        "allocator": "jemalloc"
+      },
+      "11116": {
+        "want": "40-47",
+        "cpus": "40-47",
+        "allocator": "jemalloc"
+      },
+      "11117": {
+        "want": "48-55",
+        "cpus": "48-55",
+        "allocator": "jemalloc"
+      },
+      "11118": {
+        "want": "56-63",
+        "cpus": "56-63",
+        "allocator": "jemalloc"
+      }
+    }
+  },
+  "exec1": {
+    "l3": [
+      "0-7",
+      "8-15",
+      "16-23",
+      "24-31",
+      "32-39",
+      "40-47",
+      "48-55",
+      "56-63"
+    ],
+    "ports": {
+      "11111": {
+        "want": "0-7",
+        "cpus": "0-7",
+        "allocator": "jemalloc"
+      },
+      "11112": {
+        "want": "8-15",
+        "cpus": "8-15",
+        "allocator": "jemalloc"
+      },
+      "11113": {
+        "want": "16-23",
+        "cpus": "16-23",
+        "allocator": "jemalloc"
+      },
+      "11114": {
+        "want": "24-31",
+        "cpus": "24-31",
+        "allocator": "jemalloc"
+      },
+      "11115": {
+        "want": "32-39",
+        "cpus": "32-39",
+        "allocator": "jemalloc"
+      },
+      "11116": {
+        "want": "40-47",
+        "cpus": "40-47",
+        "allocator": "jemalloc"
+      },
+      "11117": {
+        "want": "48-55",
+        "cpus": "48-55",
+        "allocator": "jemalloc"
+      },
+      "11118": {
+        "want": "56-63",
+        "cpus": "56-63",
+        "allocator": "jemalloc"
+      }
+    }
+  },
+  "exec2": {
+    "l3": [
+      "0-7",
+      "8-15",
+      "16-23",
+      "24-31",
+      "32-39",
+      "40-47",
+      "48-55",
+      "56-63"
+    ],
+    "ports": {
+      "11111": {
+        "want": "0-7",
+        "cpus": "0-7",
+        "allocator": "jemalloc"
+      },
+      "11112": {
+        "want": "8-15",
+        "cpus": "8-15",
+        "allocator": "jemalloc"
+      },
+      "11113": {
+        "want": "16-23",
+        "cpus": "16-23",
+        "allocator": "jemalloc"
+      },
+      "11114": {
+        "want": "24-31",
+        "cpus": "24-31",
+        "allocator": "jemalloc"
+      },
+      "11115": {
+        "want": "32-39",
+        "cpus": "32-39",
+        "allocator": "jemalloc"
+      },
+      "11116": {
+        "want": "40-47",
+        "cpus": "40-47",
+        "allocator": "jemalloc"
+      },
+      "11117": {
+        "want": "48-55",
+        "cpus": "48-55",
+        "allocator": "jemalloc"
+      },
+      "11118": {
+        "want": "56-63",
+        "cpus": "56-63",
+        "allocator": "jemalloc"
+      }
+    }
+  },
+  "exec3": {
+    "l3": [
+      "0-7",
+      "8-15",
+      "16-23",
+      "24-31",
+      "32-39",
+      "40-47",
+      "48-55",
+      "56-63"
+    ],
+    "ports": {
+      "11111": {
+        "want": "0-7",
+        "cpus": "0-7",
+        "allocator": "jemalloc"
+      },
+      "11112": {
+        "want": "8-15",
+        "cpus": "8-15",
+        "allocator": "jemalloc"
+      },
+      "11113": {
+        "want": "16-23",
+        "cpus": "16-23",
+        "allocator": "jemalloc"
+      },
+      "11114": {
+        "want": "24-31",
+        "cpus": "24-31",
+        "allocator": "jemalloc"
+      },
+      "11115": {
+        "want": "32-39",
+        "cpus": "32-39",
+        "allocator": "jemalloc"
+      },
+      "11116": {
+        "want": "40-47",
+        "cpus": "40-47",
+        "allocator": "jemalloc"
+      },
+      "11117": {
+        "want": "48-55",
+        "cpus": "48-55",
+        "allocator": "jemalloc"
+      },
+      "11118": {
+        "want": "56-63",
+        "cpus": "56-63",
+        "allocator": "jemalloc"
+      }
+    }
+  },
+  "exec4": {
+    "l3": [
+      "0-7",
+      "8-15",
+      "16-23",
+      "24-31",
+      "32-39",
+      "40-47",
+      "48-55",
+      "56-63"
+    ],
+    "ports": {
+      "11111": {
+        "want": "0-7",
+        "cpus": "0-7",
+        "allocator": "jemalloc"
+      },
+      "11112": {
+        "want": "8-15",
+        "cpus": "8-15",
+        "allocator": "jemalloc"
+      },
+      "11113": {
+        "want": "16-23",
+        "cpus": "16-23",
+        "allocator": "jemalloc"
+      },
+      "11114": {
+        "want": "24-31",
+        "cpus": "24-31",
+        "allocator": "jemalloc"
+      },
+      "11115": {
+        "want": "32-39",
+        "cpus": "32-39",
+        "allocator": "jemalloc"
+      },
+      "11116": {
+        "want": "40-47",
+        "cpus": "40-47",
+        "allocator": "jemalloc"
+      },
+      "11117": {
+        "want": "48-55",
+        "cpus": "48-55",
+        "allocator": "jemalloc"
+      },
+      "11118": {
+        "want": "56-63",
+        "cpus": "56-63",
+        "allocator": "jemalloc"
+      }
+    }
+  }
+}

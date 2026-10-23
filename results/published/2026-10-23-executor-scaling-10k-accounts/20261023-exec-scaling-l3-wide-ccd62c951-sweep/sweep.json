@@ -1,0 +1,284 @@
+{
+  "seed": 2937089399,
+  "order": [
+    [
+      [
+        8,
+        64
+      ],
+      [
+        7,
+        64
+      ],
+      [
+        6,
+        64
+      ],
+      [
+        1,
+        64
+      ],
+      [
+        5,
+        64
+      ],
+      [
+        3,
+        64
+      ],
+      [
+        2,
+        64
+      ],
+      [
+        4,
+        64
+      ]
+    ],
+    [
+      [
+        7,
+        64
+      ],
+      [
+        2,
+        64
+      ],
+      [
+        5,
+        64
+      ],
+      [
+        8,
+        64
+      ],
+      [
+        6,
+        64
+      ],
+      [
+        1,
+        64
+      ],
+      [
+        3,
+        64
+      ],
+      [
+        4,
+        64
+      ]
+    ],
+    [
+      [
+        4,
+        64
+      ],
+      [
+        3,
+        64
+      ],
+      [
+        7,
+        64
+      ],
+      [
+        1,
+        64
+      ],
+      [
+        2,
+        64
+      ],
+      [
+        6,
+        64
+      ],
+      [
+        8,
+        64
+      ],
+      [
+        5,
+        64
+      ]
+    ]
+  ],
+  "scenario": "exec-scaling-l3-wide",
+  "hogd_ref": "ccd62c951",
+  "archive_sha256": "146d1330859ea2355e841bec36135de0414a6d97020970ce470b6b1236904fa6",
+  "aborted": false,
+  "abort_reason": null,
+  "cleanup": [],
+  "runs": [
+    {
+      "run_dir": "20261023-2112-exec-scaling-l3-wide-ccd62c951-n8-c64-r1",
+      "n": 8,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2114-exec-scaling-l3-wide-ccd62c951-n7-c64-r1",
+      "n": 7,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2116-exec-scaling-l3-wide-ccd62c951-n6-c64-r1",
+      "n": 6,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2117-exec-scaling-l3-wide-ccd62c951-n1-c64-r1",
+      "n": 1,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2119-exec-scaling-l3-wide-ccd62c951-n5-c64-r1",
+      "n": 5,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2120-exec-scaling-l3-wide-ccd62c951-n3-c64-r1",
+      "n": 3,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2121-exec-scaling-l3-wide-ccd62c951-n2-c64-r1",
+      "n": 2,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2122-exec-scaling-l3-wide-ccd62c951-n4-c64-r1",
+      "n": 4,
+      "cores": 64,
+      "rep": 1,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2126-exec-scaling-l3-wide-ccd62c951-n7-c64-r2",
+      "n": 7,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2128-exec-scaling-l3-wide-ccd62c951-n2-c64-r2",
+      "n": 2,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2129-exec-scaling-l3-wide-ccd62c951-n5-c64-r2",
+      "n": 5,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2130-exec-scaling-l3-wide-ccd62c951-n8-c64-r2",
+      "n": 8,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2132-exec-scaling-l3-wide-ccd62c951-n6-c64-r2",
+      "n": 6,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2134-exec-scaling-l3-wide-ccd62c951-n1-c64-r2",
+      "n": 1,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2135-exec-scaling-l3-wide-ccd62c951-n3-c64-r2",
+      "n": 3,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2136-exec-scaling-l3-wide-ccd62c951-n4-c64-r2",
+      "n": 4,
+      "cores": 64,
+      "rep": 2,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2151-exec-scaling-l3-wide-ccd62c951-n6-c64-r3",
+      "n": 6,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2152-exec-scaling-l3-wide-ccd62c951-n5-c64-r3",
+      "n": 5,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2154-exec-scaling-l3-wide-ccd62c951-n7-c64-r3",
+      "n": 7,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2155-exec-scaling-l3-wide-ccd62c951-n1-c64-r3",
+      "n": 1,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2156-exec-scaling-l3-wide-ccd62c951-n3-c64-r3",
+      "n": 3,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2158-exec-scaling-l3-wide-ccd62c951-n2-c64-r3",
+      "n": 2,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2159-exec-scaling-l3-wide-ccd62c951-n4-c64-r3",
+      "n": 4,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    },
+    {
+      "run_dir": "20261023-2200-exec-scaling-l3-wide-ccd62c951-n8-c64-r3",
+      "n": 8,
+      "cores": 64,
+      "rep": 3,
+      "status": "ok"
+    }
+  ],
+  "note": "Repetitions 1-2 come from sweep 20261023-2111-exec-scaling-l3-wide-ccd62c951-sweep (us-west-2c); its repetition 3 failed on EC2 capacity. Repetition 3 comes from sweep 20261023-2149-exec-scaling-l3-wide-ccd62c951-sweep (us-west-2b; run as repetition 1 there, renamed r3 here). Same archive and scenario."
+}

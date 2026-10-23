@@ -1,0 +1,638 @@
+#!/bin/bash
+# Whitney host setup (cloud-init user_data, runs as root).
+#
+# Rendered by OpenTofu. Template variables are substituted before the host sees
+# the script; shell variables use $${...} so OpenTofu leaves them alone.
+#
+# Host contract (relied on by the Python orchestration):
+#   /opt/whitney/bin                       binaries from the archive
+#   /opt/whitney/manifest.json             archive manifest
+#   /mnt/whitney                           data mount; TMPDIR=/mnt/whitney/tmp
+#   /mnt/whitney/work/<role>               per-role work dir (never the mount point)
+#   /etc/whitney/control-<port>.env        ROLE=<role> and WORK_DIR=<work dir> for a port
+#   whitney-control@<port>.service         control_server for that port; its env
+#                                          file picks the role and work dir
+#                                          (started, never enabled: a reboot does not
+#                                          bring it back without the mount)
+#   whitney-sar.service                    sar -A -o /var/lib/whitney/sar.bin 1
+#   /opt/whitney/vector/bin/vector         pinned Vector (sha256 checked like the archive)
+#   /etc/whitney/vector/base.toml          Vector config: host metrics and the /metrics
+#                                          of this host's daemons, every 1 s, to
+#                                          /var/lib/whitney/metrics/<run>.ndjson
+#   /etc/whitney/vector/run.env            run labels (WHITNEY_RUN, _SCENARIO, _N, _REP),
+#                                          written by Whitney before each run
+#   /etc/whitney/vector/remote.env         optional, 0600: remote-write URL and credentials,
+#                                          pushed by Whitney over SSH; absent by default
+#   whitney-vector.service                 /usr/local/sbin/whitney-vector (started per
+#                                          run by Whitney, never enabled)
+#   /var/lib/whitney/host-facts.json       facts, data_volume (ebs: device, size_bytes,
+#                                          volume_type; else null), tuning_applied and
+#                                          vector (version, remote_write)
+#   /run/whitney/failed                    written on a setup error (the message)
+#   /run/whitney/ready                     written last, after the units are active.
+#                                          /run is a tmpfs, so a reboot clears both.
+#   shutdown -h +<max_lifetime_minutes>    scheduled first; EC2 then terminates the host
+#   /etc/whitney/expires-at                the same deadline as a Unix epoch, checked by
+#   whitney-deadman.timer                  (enabled) every 2 min, also after a reboot
+#
+# Storage (WHITNEY_STORAGE): tmpfs mounts a RAM tmpfs on every host. ebs and
+# nvme format and mount a data disk on db, event, and indexer (ebs: the EBS
+# data volume, nvme: the instance store); runner and executor hosts keep a
+# plain directory on the root volume.
+#
+# WHITNEY_DRY_RUN=1 prints the commands that change the host (shutdown, apt,
+# mkfs, mount, chown, systemctl, cpupower) and does not run them. Files are still written.
+
+set -Eeuo pipefail
+
+WHITNEY_ROLE='${role}'
+WHITNEY_STORAGE='${storage}'
+WHITNEY_EBS_VOLUME_TYPE='${ebs_volume_type}'
+WHITNEY_ARCHIVE_URL='${archive_url}'
+WHITNEY_ARCHIVE_SHA256='${archive_sha256}'
+WHITNEY_CONTROL_PORTS="${join(" ", control_ports)}"
+WHITNEY_WORK_ROLES="${join(" ", work_roles)}"
+WHITNEY_METRICS_PORTS="${join(" ", [for r, p in metrics_ports : "${r}=${p}"])}"
+WHITNEY_CLUSTER='${cluster_name}'
+WHITNEY_INSTANCE_TYPE='${instance_type}'
+WHITNEY_VECTOR_VERSION='${vector_version}'
+WHITNEY_VECTOR_URL='${vector_url}'
+WHITNEY_VECTOR_SHA256='${vector_sha256}'
+
+DRY_RUN="$${WHITNEY_DRY_RUN:-0}"
+OPT=/opt/whitney
+STATE=/var/lib/whitney
+RUN_STATE=/run/whitney
+MNT=/mnt/whitney
+ETC=/etc/whitney
+UNIT_DIR=/etc/systemd/system
+PACKAGES=(libjemalloc2 libatomic1 libsnappy1v5 sysstat jq nvme-cli xfsprogs curl)
+
+TUNING=()
+
+log() { echo "whitney-setup: $*"; }
+
+# run prints the command in dry-run mode, runs it otherwise.
+run() {
+  if [ "$DRY_RUN" = 1 ]; then
+    echo "DRYRUN: $*"
+  else
+    "$@"
+  fi
+}
+
+# record_tuning <name> <ok|failed> <detail>
+record_tuning() {
+  TUNING+=("$(jq -nc --arg n "$1" --arg s "$2" --arg d "$3" '{name: $n, status: $s, detail: $d}')")
+}
+
+# imds <path>: an instance metadata value (IMDSv2), or "unknown".
+imds() {
+  local token
+  token="$(curl -fsS -m 3 -X PUT -H 'X-aws-ec2-metadata-token-ttl-seconds: 60' http://169.254.169.254/latest/api/token 2>/dev/null)" || {
+    echo unknown
+    return 0
+  }
+  curl -fsS -m 3 -H "X-aws-ec2-metadata-token: $token" "http://169.254.169.254/latest/meta-data/$1" 2>/dev/null || echo unknown
+}
+
+FAIL_REASON=""
+
+die() {
+  FAIL_REASON="$*"
+  log "$*"
+  exit 1
+}
+
+# Any non-zero exit before ready leaves a marker for the orchestration.
+on_exit() {
+  local code=$?
+  if [ "$code" -ne 0 ] && [ ! -e "$RUN_STATE/ready" ]; then
+    mkdir -p "$RUN_STATE"
+    echo "setup failed (exit $code): $${FAIL_REASON:-unexpected error near line $${LAST_ERR_LINE:-?}}" >"$RUN_STATE/failed"
+  fi
+}
+LAST_ERR_LINE=""
+trap 'LAST_ERR_LINE=$LINENO' ERR
+trap on_exit EXIT
+
+# ---- dead-man switch -------------------------------------------------------------
+# First, before anything that can fail: power off after the max lifetime. The
+# instance has instance_initiated_shutdown_behavior = terminate, so this ends
+# the bill even if the operator machine never runs tofu destroy.
+run shutdown -h +${max_lifetime_minutes} "whitney: max lifetime reached" ||
+  die "cannot schedule the max-lifetime shutdown"
+
+mkdir -p "$STATE" "$ETC" "$RUN_STATE"
+
+# A scheduled shutdown does not survive a reboot. The same deadline, as an
+# absolute time, plus an enabled timer that checks it, do.
+echo "$(($(date +%s) + ${max_lifetime_minutes} * 60))" >"$ETC/expires-at"
+cat >/usr/local/sbin/whitney-deadman <<'DEADMAN'
+#!/bin/sh
+# Power off once /etc/whitney/expires-at (a Unix epoch) has passed. A missing
+# or bad file also powers off: the timer only exists after setup wrote it.
+exp="$(cat /etc/whitney/expires-at 2>/dev/null)"
+case "$exp" in
+  '' | *[!0-9]*)
+    echo "whitney-deadman: no valid /etc/whitney/expires-at, powering off"
+    exec systemctl poweroff
+    ;;
+esac
+if [ "$(date +%s)" -ge "$exp" ]; then
+  echo "whitney-deadman: max lifetime reached, powering off"
+  exec systemctl poweroff
+fi
+DEADMAN
+chmod 755 /usr/local/sbin/whitney-deadman
+cat >"$UNIT_DIR/whitney-deadman.service" <<'UNIT'
+[Unit]
+Description=Whitney dead-man switch: power off after /etc/whitney/expires-at
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/whitney-deadman
+UNIT
+cat >"$UNIT_DIR/whitney-deadman.timer" <<'UNIT'
+[Unit]
+Description=Whitney dead-man switch check
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=2min
+AccuracySec=10s
+
+[Install]
+WantedBy=timers.target
+UNIT
+run systemctl daemon-reload
+run systemctl enable --now whitney-deadman.timer ||
+  die "cannot enable the dead-man timer"
+
+# ---- packages ---------------------------------------------------------------
+install_packages() {
+  local i
+  for i in 1 2 3 4 5; do
+    if run env DEBIAN_FRONTEND=noninteractive apt-get update -q \
+      -o DPkg::Lock::Timeout=300 &&
+      run env DEBIAN_FRONTEND=noninteractive apt-get install -y -q \
+        -o DPkg::Lock::Timeout=300 "$${PACKAGES[@]}"; then
+      return 0
+    fi
+    log "apt attempt $i failed, retrying"
+    sleep 10
+  done
+  return 1
+}
+install_packages
+
+# ---- archive: download, verify, extract --------------------------------------
+# The SHA-256 check comes before anything is extracted or written to systemd.
+ARCHIVE=/tmp/whitney-archive.tar.gz
+curl -fsSL --retry 5 --retry-delay 3 --retry-all-errors -o "$ARCHIVE" "$WHITNEY_ARCHIVE_URL"
+actual="$(sha256sum "$ARCHIVE" | cut -d' ' -f1)"
+expected="$(echo "$WHITNEY_ARCHIVE_SHA256" | tr 'A-F' 'a-f')"
+if [ "$actual" != "$expected" ]; then
+  die "archive sha256 mismatch: expected $expected, got $actual"
+fi
+mkdir -p "$OPT"
+tar -xzf "$ARCHIVE" --strip-components=1 -C "$OPT"
+rm -f "$ARCHIVE"
+for b in control_server whitney-runner; do
+  if [ ! -x "$OPT/bin/$b" ]; then
+    die "archive has no $OPT/bin/$b"
+  fi
+done
+
+# ---- Vector: download, verify, install ----------------------------------------
+# Pinned like the archive: the SHA-256 check comes before anything is installed.
+VECTOR_TAR=/tmp/whitney-vector.tar.gz
+VECTOR="$OPT/vector/bin/vector"
+curl -fsSL --retry 5 --retry-delay 3 --retry-all-errors -o "$VECTOR_TAR" "$WHITNEY_VECTOR_URL"
+actual="$(sha256sum "$VECTOR_TAR" | cut -d' ' -f1)"
+expected="$(echo "$WHITNEY_VECTOR_SHA256" | tr 'A-F' 'a-f')"
+if [ "$actual" != "$expected" ]; then
+  die "vector sha256 mismatch: expected $expected, got $actual"
+fi
+vtmp="$(mktemp -d)"
+tar -xzf "$VECTOR_TAR" -C "$vtmp"
+vbin="$(find "$vtmp" -path '*/bin/vector' -type f | head -n 1)"
+if [ -z "$vbin" ]; then
+  die "vector archive has no bin/vector"
+fi
+install -D -m 0755 "$vbin" "$VECTOR"
+rm -rf "$vtmp" "$VECTOR_TAR"
+VECTOR_VERSION_OUTPUT="$("$VECTOR" --version 2>&1 | head -n 1 || true)"
+case "$VECTOR_VERSION_OUTPUT" in
+  "vector $WHITNEY_VECTOR_VERSION "*) ;;
+  *) die "vector --version says '$VECTOR_VERSION_OUTPUT', want vector $WHITNEY_VECTOR_VERSION" ;;
+esac
+
+# ---- storage -------------------------------------------------------------------
+role_has_data() {
+  case "$WHITNEY_ROLE" in
+    runner | exec*) return 1 ;;
+    *) return 0 ;;
+  esac
+}
+
+find_instance_store() {
+  local dev=""
+  if command -v nvme >/dev/null 2>&1; then
+    dev="$(nvme list -o json 2>/dev/null | jq -r '[.. | objects | select(.ModelNumber? == "Amazon EC2 NVMe Instance Storage") | .DevicePath // empty] | first // empty' 2>/dev/null || true)"
+  fi
+  if [ -z "$dev" ]; then
+    dev="$(lsblk -dn -o PATH,MODEL 2>/dev/null | awk '/Amazon EC2 NVMe Instance Storage/ {print $1; exit}' || true)"
+  fi
+  echo "$dev"
+}
+
+# On Nitro, EBS volumes are NVMe disks with model "Amazon Elastic Block Store".
+# The data volume (/dev/sdf in the launch mapping) is the one with no
+# partitions and nothing mounted on it: the root volume always has a mount
+# (/), whether it is partitioned or not. Instance-store disks have another
+# model. Prints "<path> <size in bytes>" for each candidate.
+ebs_data_disks() {
+  lsblk -J -b -o NAME,PATH,MODEL,SIZE,TYPE,MOUNTPOINTS |
+    jq -r '.blockdevices[]
+      | select(.type == "disk" and ((.model // "") | test("Amazon Elastic Block Store")))
+      | select((.children // []) == [])
+      | select([.mountpoints[]? | select(. != null)] == [])
+      | "\(.path) \(.size)"'
+}
+
+DATA_VOLUME=null
+mkdir -p "$MNT"
+case "$WHITNEY_STORAGE" in
+  tmpfs)
+    run mount -t tmpfs -o size=75% tmpfs "$MNT"
+    ;;
+  nvme)
+    if role_has_data; then
+      dev="$(find_instance_store)"
+      if [ -z "$dev" ] && [ "$DRY_RUN" = 1 ]; then
+        dev=/dev/nvme1n1
+      fi
+      if [ -z "$dev" ]; then
+        die "no instance-store NVMe device found"
+      fi
+      log "using instance store $dev"
+      run mkfs.xfs -f "$dev"
+      run mount -o noatime "$dev" "$MNT"
+    else
+      log "role $WHITNEY_ROLE has no data: plain directory on the root volume"
+    fi
+    ;;
+  ebs)
+    if role_has_data; then
+      # The volume is attached at launch, but its device can show up a little
+      # after cloud-init starts: wait up to 60 s for it.
+      disks=""
+      for _ in $(seq 1 30); do
+        disks="$(ebs_data_disks || true)"
+        if [ -n "$disks" ] || [ "$DRY_RUN" = 1 ]; then
+          break
+        fi
+        sleep 2
+      done
+      count="$(grep -c . <<<"$disks" || true)"
+      if [ "$count" -eq 0 ]; then
+        die "no EBS data volume found (want one Amazon Elastic Block Store disk without partitions or mounts besides the root volume)"
+      fi
+      if [ "$count" -gt 1 ]; then
+        die "more than one EBS data volume candidate: $(cut -d' ' -f1 <<<"$disks" | tr '\n' ' ' | sed 's/ $//')"
+      fi
+      read -r dev size <<<"$disks"
+      log "using EBS data volume $dev ($size bytes, $WHITNEY_EBS_VOLUME_TYPE)"
+      run mkfs.xfs -f "$dev"
+      run mount -o noatime "$dev" "$MNT"
+      DATA_VOLUME="$(jq -nc --arg d "$dev" --argjson s "$size" --arg t "$WHITNEY_EBS_VOLUME_TYPE" \
+        '{device: $d, size_bytes: $s, volume_type: $t}')"
+    else
+      log "role $WHITNEY_ROLE has no data: plain directory on the root volume"
+    fi
+    ;;
+  *)
+    die "unknown storage mode: $WHITNEY_STORAGE"
+    ;;
+esac
+
+mkdir -p "$MNT/tmp"
+read -r -a PORTS <<<"$WHITNEY_CONTROL_PORTS"
+read -r -a ROLES <<<"$WHITNEY_WORK_ROLES"
+if [ "$${#PORTS[@]}" -eq 0 ] || [ "$${#PORTS[@]}" -ne "$${#ROLES[@]}" ]; then
+  die "control ports and work roles must pair up: $WHITNEY_CONTROL_PORTS / $WHITNEY_WORK_ROLES"
+fi
+
+# The work dir is always a subdirectory of the mount, with no trailing slash.
+# whitney-runner compares it with the control_server -w path verbatim.
+for i in "$${!PORTS[@]}"; do
+  mkdir -p "$MNT/work/$${ROLES[$i]}"
+  cat >"$ETC/control-$${PORTS[$i]}.env" <<ENV
+ROLE=$${ROLES[$i]}
+WORK_DIR=$MNT/work/$${ROLES[$i]}
+ENV
+done
+
+# ---- metrics: Vector config -----------------------------------------------------------
+# Vector scrapes host metrics and the /metrics endpoint of each daemon role on
+# this host (hogd binds it to the private IP, --bind-ip) every second, adds
+# labels, and writes NDJSON to /var/lib/whitney/metrics/<run>.ndjson. The
+# file sink takes only log events, so metric_to_log sits in front of it (a
+# remap in between hides the type mismatch from vector validate). The run
+# labels come from run.env through Vector's environment variable
+# interpolation: a restart per run picks up new ones.
+VECTOR_ETC="$ETC/vector"
+mkdir -p "$VECTOR_ETC" "$STATE/metrics" "$STATE/vector"
+read -r -a METRICS <<<"$WHITNEY_METRICS_PORTS"
+PRIVATE_IP=""
+if [ "$${#METRICS[@]}" -gt 0 ]; then
+  PRIVATE_IP="$(imds local-ipv4)"
+  if [ "$PRIVATE_IP" = unknown ] && [ "$DRY_RUN" = 1 ]; then
+    PRIVATE_IP=127.0.0.1
+  fi
+  if [ "$PRIVATE_IP" = unknown ]; then
+    die "cannot read the private IP from instance metadata"
+  fi
+fi
+for entry in "$${METRICS[@]}"; do
+  r="$${entry%%=*}"
+  p="$${entry#*=}"
+  case " $WHITNEY_WORK_ROLES " in
+    *" $r "*) ;;
+    *) die "bad metrics port entry: $entry (work roles: $WHITNEY_WORK_ROLES)" ;;
+  esac
+  case "$p" in
+    '' | *[!0-9]*) die "bad metrics port entry: $entry" ;;
+  esac
+done
+
+# Generated configs must hold no "$" other than the run label references:
+# Vector interpolates $NAME and $${NAME} anywhere in the file, comments too.
+write_vector_config() {
+  local inputs='"role_host"' entry r p
+  cat <<TOML
+data_dir = "/var/lib/whitney/vector"
+
+[sources.host]
+type = "host_metrics"
+collectors = ["cpu", "memory", "network", "disk", "load"]
+scrape_interval_secs = 1
+disk.devices.excludes = ["loop*"]
+network.devices.excludes = ["lo"]
+
+[transforms.role_host]
+type = "remap"
+inputs = ["host"]
+source = '.tags.role = "$WHITNEY_ROLE"'
+TOML
+  for entry in "$${METRICS[@]}"; do
+    r="$${entry%%=*}"
+    p="$${entry#*=}"
+    cat <<TOML
+
+[sources.daemon_$r]
+type = "prometheus_scrape"
+endpoints = ["http://$PRIVATE_IP:$p/metrics"]
+scrape_interval_secs = 1
+scrape_timeout_secs = 0.9
+
+[transforms.role_$r]
+type = "remap"
+inputs = ["daemon_$r"]
+source = '.tags.role = "$r"'
+TOML
+    inputs="$inputs, \"role_$r\""
+  done
+  cat <<TOML
+
+[transforms.labels]
+type = "remap"
+inputs = [$inputs]
+source = '''
+.tags.job = "whitney"
+.tags.whitney_cluster = "$WHITNEY_CLUSTER"
+.tags.instance_type = "$WHITNEY_INSTANCE_TYPE"
+.tags.whitney_run = "\$${WHITNEY_RUN}"
+.tags.scenario = "\$${WHITNEY_SCENARIO}"
+.tags.n = "\$${WHITNEY_N}"
+.tags.rep = "\$${WHITNEY_REP}"
+'''
+
+[transforms.as_logs]
+type = "metric_to_log"
+inputs = ["labels"]
+
+[sinks.files]
+type = "file"
+inputs = ["as_logs"]
+path = "/var/lib/whitney/metrics/\$${WHITNEY_RUN}.ndjson"
+encoding.codec = "json"
+TOML
+}
+write_vector_config >"$VECTOR_ETC/base.toml"
+
+# whitney-vector starts Vector with base.toml, plus a prometheus_remote_write
+# sink when systemd gave it WHITNEY_REMOTE_WRITE_URL from remote.env. The
+# sink gives up on a batch after 3 retries and drops new metrics when its
+# buffer is full, so a bad endpoint never holds up the local files. Its
+# config holds only references: Vector reads the endpoint and the
+# credentials from its environment, so they are in no config file.
+cat >/usr/local/sbin/whitney-vector <<'WRAPPER'
+#!/bin/sh
+# Start Vector for one run (whitney-vector.service), or, with "check",
+# validate base.toml alone and with each remote-write auth form, then run a
+# temp copy of base.toml for a few seconds and require metrics in its file
+# (validate passes configs that drop every event).
+# The single-quoted $${...} are for Vector to fill in, not the shell.
+# shellcheck disable=SC2016
+set -eu
+VECTOR=/opt/whitney/vector/bin/vector
+BASE=/etc/whitney/vector/base.toml
+
+# remote_config: the remote-write sink for the auth form in the environment
+# (a bearer token, else basic auth).
+remote_config() {
+  if [ -n "$${WHITNEY_REMOTE_WRITE_BEARER_TOKEN:-}" ]; then
+    auth='strategy = "bearer"
+token = "$${WHITNEY_REMOTE_WRITE_BEARER_TOKEN}"'
+  else
+    auth='strategy = "basic"
+user = "$${WHITNEY_REMOTE_WRITE_USERNAME}"
+password = "$${WHITNEY_REMOTE_WRITE_PASSWORD}"'
+  fi
+  printf '%s\n' '[sinks.remote]' 'type = "prometheus_remote_write"' 'inputs = ["labels"]' \
+    'endpoint = "$${WHITNEY_REMOTE_WRITE_URL}"' 'healthcheck.enabled = false' \
+    'buffer.when_full = "drop_newest"' 'request.retry_attempts = 3' '' \
+    '[sinks.remote.auth]' "$auth"
+}
+
+if [ "$${1:-}" = check ]; then
+  tmp="$(mktemp -d)"
+  trap 'rm -rf "$tmp"' EXIT
+  export WHITNEY_RUN=check WHITNEY_SCENARIO=check WHITNEY_N=0 WHITNEY_REP=0
+  export WHITNEY_REMOTE_WRITE_URL=https://remote-write.invalid/push
+  export WHITNEY_REMOTE_WRITE_USERNAME=user WHITNEY_REMOTE_WRITE_PASSWORD=password
+  remote_config >"$tmp/basic.toml"
+  export WHITNEY_REMOTE_WRITE_BEARER_TOKEN=token
+  remote_config >"$tmp/bearer.toml"
+  "$VECTOR" validate --no-environment "$BASE"
+  "$VECTOR" validate --no-environment "$BASE" "$tmp/basic.toml"
+  "$VECTOR" validate --no-environment "$BASE" "$tmp/bearer.toml"
+  out="$tmp/selftest.ndjson"
+  mkdir "$tmp/data"
+  sed -e "s|^data_dir = .*|data_dir = \"$tmp/data\"|" \
+    -e "s|^path = .*|path = \"$out\"|" "$BASE" >"$tmp/selftest.toml"
+  grep -qx "path = \"$out\"" "$tmp/selftest.toml" || {
+    echo "vector self-test: no file sink path in $BASE"
+    exit 1
+  }
+  export WHITNEY_RUN=selftest
+  timeout 5 "$VECTOR" --graceful-shutdown-limit-secs 2 --config "$tmp/selftest.toml" \
+    >"$tmp/selftest.log" 2>&1 || true
+  if ! grep -q '"whitney_run":"selftest"' "$out" 2>/dev/null; then
+    echo "vector self-test wrote no metrics to its file in 5 s; vector output:"
+    tail -n 20 "$tmp/selftest.log"
+    exit 1
+  fi
+  exit 0
+fi
+
+set -- --config "$BASE"
+if [ -n "$${WHITNEY_REMOTE_WRITE_URL:-}" ]; then
+  remote_config >"$${RUNTIME_DIRECTORY:?}/remote.toml"
+  set -- "$@" --config "$RUNTIME_DIRECTORY/remote.toml"
+fi
+# A remote endpoint that is down must not hold up the stop (and so the collect).
+exec "$VECTOR" --graceful-shutdown-limit-secs 10 "$@"
+WRAPPER
+chmod 755 /usr/local/sbin/whitney-vector
+run /usr/local/sbin/whitney-vector check ||
+  die "vector config check failed (validate or self-test; see the output above)"
+
+run chown -R ubuntu:ubuntu "$OPT" "$STATE" "$MNT"
+
+# ---- systemd units ---------------------------------------------------------------
+# One instance per control port. The instance name is the port. The env file
+# /etc/whitney/control-<port>.env gives ROLE and WORK_DIR. KillMode=control-group:
+# a restart kills every daemon the control_server started.
+cat >"$UNIT_DIR/whitney-control@.service" <<'UNIT'
+[Unit]
+Description=Whitney control_server on port %i
+After=network-online.target
+Wants=network-online.target
+RequiresMountsFor=/mnt/whitney
+
+[Service]
+Type=simple
+User=ubuntu
+EnvironmentFile=/etc/whitney/control-%i.env
+Environment=TMPDIR=/mnt/whitney/tmp
+ExecStart=/opt/whitney/bin/control_server -p %i -w $${WORK_DIR}
+KillMode=control-group
+LimitNOFILE=1048576
+Restart=no
+UNIT
+
+cat >"$UNIT_DIR/whitney-sar.service" <<'UNIT'
+[Unit]
+Description=Whitney sar collection
+
+[Service]
+Type=simple
+User=ubuntu
+ExecStart=/usr/bin/sar -A -o /var/lib/whitney/sar.bin 1
+KillMode=control-group
+Restart=no
+UNIT
+
+# Vector for one run. Whitney writes run.env and restarts the unit before each
+# run, and stops it (which flushes the sinks) after. Never enabled or started
+# here: without run.env the unit cannot start, so no metrics go unlabeled.
+cat >"$UNIT_DIR/whitney-vector.service" <<'UNIT'
+[Unit]
+Description=Whitney metrics (Vector)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+EnvironmentFile=/etc/whitney/vector/run.env
+EnvironmentFile=-/etc/whitney/vector/remote.env
+RuntimeDirectory=whitney-vector
+RuntimeDirectoryMode=0700
+ExecStart=/usr/local/sbin/whitney-vector
+KillMode=control-group
+TimeoutStopSec=90
+Restart=no
+UNIT
+
+# ---- tuning (never fails the boot) ----------------------------------------------------
+tune_cpupower() {
+  if ! command -v cpupower >/dev/null 2>&1; then
+    run env DEBIAN_FRONTEND=noninteractive apt-get install -y -q linux-tools-common "linux-tools-$(uname -r)" >/dev/null 2>&1 || true
+  fi
+  if ! command -v cpupower >/dev/null 2>&1 && [ "$DRY_RUN" != 1 ]; then
+    record_tuning cpupower_performance failed "cpupower not available"
+    return 0
+  fi
+  local out
+  if out="$(run cpupower frequency-set -g performance 2>&1)"; then
+    record_tuning cpupower_performance ok "$out"
+  else
+    record_tuning cpupower_performance failed "$out"
+  fi
+}
+tune_cpupower || record_tuning cpupower_performance failed "tuning step errored"
+
+# ---- start units ------------------------------------------------------------------------
+# Started, not enabled: after a reboot the mount is gone, so they must stay down.
+UNITS=(whitney-sar.service)
+for p in "$${PORTS[@]}"; do
+  UNITS+=("whitney-control@$p.service")
+done
+run systemctl daemon-reload
+run systemctl start "$${UNITS[@]}"
+if [ "$DRY_RUN" != 1 ]; then
+  sleep 3
+  for u in "$${UNITS[@]}"; do
+    if ! systemctl is-active --quiet "$u"; then
+      systemctl status --no-pager "$u" || true
+      die "unit $u is not active"
+    fi
+  done
+fi
+
+# ---- host facts ---------------------------------------------------------------------------
+write_facts() {
+  local tuning_json mount_json lscpu_json
+  tuning_json="$(printf '%s\n' "$${TUNING[@]:-}" | jq -s 'map(select(. != null))' 2>/dev/null || echo '[]')"
+  mount_json="$(findmnt -J "$MNT" 2>/dev/null || findmnt -J -T "$MNT" 2>/dev/null || echo '{}')"
+  lscpu_json="$(lscpu -J 2>/dev/null || echo '{}')"
+  jq -n \
+    --arg role "$WHITNEY_ROLE" \
+    --arg storage "$WHITNEY_STORAGE" \
+    --arg uname "$(uname -a)" \
+    --arg instance_type "$(imds instance-type)" \
+    --arg ami_id "$(imds ami-id)" \
+    --arg az "$(imds placement/availability-zone)" \
+    --argjson lscpu "$lscpu_json" \
+    --argjson mount "$mount_json" \
+    --argjson tuning "$tuning_json" \
+    --argjson data_volume "$DATA_VOLUME" \
+    --arg vector_version "$WHITNEY_VECTOR_VERSION" \
+    --arg vector_version_output "$VECTOR_VERSION_OUTPUT" \
+    --argjson meminfo "$(jq -Rn '[inputs | capture("^(?<k>[^:]+):\\s+(?<v>[0-9]+)") | select(.k | test("Total$")) | {(.k): (.v | tonumber)}] | add' /proc/meminfo)" \
+    '{role: $role, storage: $storage, lscpu: $lscpu, uname: $uname, meminfo: $meminfo,
+      instance_type: $instance_type, ami_id: $ami_id, az: $az, mount: $mount,
+      data_volume: $data_volume, tuning_applied: $tuning,
+      vector: {version: $vector_version, version_output: $vector_version_output,
+               remote_write: false}}' >"$STATE/host-facts.json"
+}
+write_facts
+
+# ---- ready: last ----------------------------------------------------------------------------
+run chown -R ubuntu:ubuntu "$STATE"
+date -u +%Y-%m-%dT%H:%M:%SZ >"$RUN_STATE/ready"
+log "ready"

@@ -1,0 +1,6 @@
+{
+  "remote_write": false,
+  "remote_write_host": null,
+  "vector_version": "0.43.0",
+  "scrape_interval_secs": 1
+}

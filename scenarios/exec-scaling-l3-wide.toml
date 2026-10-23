@@ -1,0 +1,41 @@
+# Executor host scaling: N = 1 to 8 executor hosts, all 64 cores of each, one
+# hog-exec per L3 cache domain (8 hog-execs of 8 cores per r8a.16xlarge).
+# The published 10,000-account reference curve (low contention). See README.md and docs/methodology.md.
+#
+# Before a run, set:
+#   hogd_ref           a hogd tag that has the HOGD_EXTRA_BENCH_DIRS bench hook
+#   availability_zone  a zone that offers r8a.16xlarge and r8a.24xlarge:
+#     aws ec2 describe-instance-type-offerings --location-type availability-zone \
+#       --filters Name=instance-type,Values=r8a.16xlarge,r8a.24xlarge --region us-west-2
+#   ami_id             the Canonical Ubuntu 26.04 AMI ID for the region
+name = "exec-scaling-l3-wide"
+hogd_ref = "SET-ME"
+region = "us-west-2"
+availability_zone = ""
+ami_id = ""
+
+n_list = [1, 2, 3, 4, 5, 6, 7, 8]
+exec_cores = [64]
+exec_per_l3 = true
+# jemalloc preloaded into hog-exec (see docs/methodology.md, Allocator).
+exec_allocator = "jemalloc"
+accounts = 10000
+
+warmup_blocks = 1
+timed_blocks = 10
+# Fixed at every N: hog-event cannot commit a block above about 4.5M txs yet
+# (docs/methodology.md, Run shape).
+txs_per_block = 4000000
+batch_sizes = [5]
+repetitions = 3
+
+# tmpfs: the benchmark measures contract execution, not storage.
+storage = "tmpfs"
+
+# The runner, db, and event hosts are r8a.24xlarge: at N = 8 the event host
+# receives more than the 30 Gbps NIC of an r8a.16xlarge carries.
+[instance_types]
+runner = "r8a.24xlarge"
+exec = "r8a.16xlarge"
+db = "r8a.24xlarge"
+event = "r8a.24xlarge"
