@@ -14,7 +14,6 @@ target_link_libraries(
   protocol
   runtime
   exec_interface
-  db_interface
   hog_db
   runtime_test_util
   contract_loader
