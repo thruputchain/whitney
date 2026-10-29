@@ -229,7 +229,7 @@ jq -n \
   "{gcc: \$gcc, clang: \$clang, rustc: \$rustc, cmake: \$cmake}" >"$BUILD_REL/whitney-toolchain.json"
 if [[ "$RUN_TEST" == 1 ]]; then
   echo "== run whitney_runner_test"
-  "$BUILD_REL/hogd/hog_exec/bench/extra/runner/whitney_runner_test" --gtest_brief=1 |
+  "$BUILD_REL/whitney/whitney_runner_test" --gtest_brief=1 |
     tee /tmp/whitney_runner_test.log
   ran="$(grep -oE "^\[==========\] [0-9]+ tests? from" /tmp/whitney_runner_test.log |
     grep -oE "[0-9]+" | head -n1 || true)"

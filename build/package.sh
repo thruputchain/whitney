@@ -16,7 +16,7 @@ set -euo pipefail
 
 # archive name : path in the hogd build dir
 BINARIES=(
-  whitney-runner:hogd/hog_exec/bench/extra/runner/whitney-runner
+  whitney-runner:whitney/whitney-runner
   control_server:hogd/hog_exec/bench/control_server
   control_cli:hogd/hog_exec/bench/control_cli
   hog-exec:hogd/hog_exec/hog-exec
