@@ -1,8 +1,8 @@
 # whitney-runner: Whitney's fork of hogd's multiexec_runner.
 #
 # hogd adds this directory from hogd/hog_exec/bench through
-# -DHOGD_EXTRA_BENCH_DIRS=<abs path to runner/>, so it gets the same scope,
-# include dirs and link targets as multiexec_runner.
+# -DHOGD_EXTRA_BENCH_DIRS=<abs path to runner/>. It is a child directory of the
+# bench dir, so it inherits that directory's variables and include dirs.
 
 add_executable(
   whitney-runner
@@ -76,4 +76,13 @@ target_link_libraries(
   whitney_runner_lib
   GTest::gtest
   GTest::gtest_main
+)
+
+# Fixed output dir: package.sh and build.sh --test find the binaries here, not
+# in the binary dir hogd picks for this directory.
+set_target_properties(
+  whitney-runner
+  whitney_runner_test
+  PROPERTIES
+  RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/whitney
 )
